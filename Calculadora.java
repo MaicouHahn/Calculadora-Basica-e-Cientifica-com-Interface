@@ -2,6 +2,7 @@ package Calculadora;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.lang.Math;
 
 public class Calculadora implements ActionListener{//Metodo action performed quando chamado(não esquecer porque ele não adiciona sozinho), esse metodo é para reconhecimento da função do botão
     
@@ -11,8 +12,7 @@ public class Calculadora implements ActionListener{//Metodo action performed qua
     JPanel painel=new JPanel();// Aqui o painel separado que vai os botoes decimais e numericos em um grid separado
     JPanel painel2=new JPanel();
     JTextField texto=new JTextField();// Essa variavel que vai receber os valores para depois converter em double(Tela dos numeros)  
-    Font fonte= new Font("Courier New",Font.ITALIC,30);// Fonte customizada para os botões principais
-    Font fonte2= new Font("Courier New",Font.ITALIC,18);// Fonte para os botoes da ultima fileira inferior
+    Font fonte= new Font("Courier New",Font.ITALIC,18);// Fonte customizada para os botões principais
 
     //==================================================botoes e nomes das funções========================================
 
@@ -31,14 +31,14 @@ public class Calculadora implements ActionListener{//Metodo action performed qua
     JButton calc2 = new JButton("CI");
     JButton calc2V=new JButton("<");
     JButton porcentagem= new JButton("%");
-    JButton fatorial= new JButton("f");
-    JButton n3= new JButton("C");// Esses aqui ainda estou fazendo as funções, deixei como letras para identificar melhor
-    JButton n4= new JButton("D");
-    JButton n5= new JButton("E");
-    JButton n6= new JButton("F");
-    JButton n7= new JButton("G");
-    JButton n8= new JButton("H");
-
+    JButton fatorial= new JButton("n!");
+    JButton seno= new JButton("Sen");// Esses aqui ainda estou fazendo as funções, deixei como letras para identificar melhor
+    JButton cosseno= new JButton("Cos");
+    JButton tangente= new JButton("Tg");
+    JButton exponencial= new JButton("Exp");
+    JButton raizquadrada= new JButton("√");
+    JButton log10= new JButton("Lg10");
+    
 //================================================== Variaveis para uso global=============================================
     double num1=0,num2=0,resultado=0;// As variaveis que irão ser utilizadas (irão ser convertidas de string para double e double para string novamente e armazenadas em texto)
     char operador; // Para um switch que vai identificar e efetuar o calculo da função
@@ -71,13 +71,13 @@ public class Calculadora implements ActionListener{//Metodo action performed qua
             funcBotao[8]=negBotao;
             funcCBotao[0]=porcentagem;
             funcCBotao[1]=fatorial;
-            funcCBotao[2]=n3;
-            funcCBotao[3]=n4;
-            funcCBotao[4]=n5;
-            funcCBotao[5]=n6;
-            funcCBotao[6]=n7;
-            funcCBotao[7]=n8;
-
+            funcCBotao[2]=seno;
+            funcCBotao[3]=cosseno;
+            funcCBotao[4]=tangente;
+            funcCBotao[5]=exponencial;
+            funcCBotao[6]=raizquadrada;
+            funcCBotao[7]=log10;
+            
             //=================================Função de leitura nos botões e setando as fontes=================================
             
             calc2.addActionListener(this);//Botão de clique para mostrar o painel cientifico
@@ -110,7 +110,7 @@ public class Calculadora implements ActionListener{//Metodo action performed qua
             //===================================Fim das adições de leitura e fontes============================================
 
             //====================================Layout e mudar as cores================================
-
+            
             for(int i=0 ; i<10;i++){//=====Decimais========
 
                 numBotao[i].setBackground(Color.lightGray);
@@ -132,19 +132,19 @@ public class Calculadora implements ActionListener{//Metodo action performed qua
             calc2.setForeground(Color.darkGray);
             calc2V.setBackground(Color.gray);
             calc2V.setForeground(Color.darkGray);
-
+            
             //========================================Fim do layout das cores============================
 
             //====OBS: Os botoes de deletar, limpar, apagar,numero negativo, trocar para cientifica e voltar para a calculadora normal estao separados====
             
             //====Formatação desses botões que citei acima=====
             delBotao.setBounds(51, 410,68, 63);
-            delBotao.setFont(fonte2);
+            delBotao.setFont(fonte);
             limpBotao.setBounds(129, 410,67, 63);
-            limpBotao.setFont(fonte2);
+            limpBotao.setFont(fonte);
             negBotao.setBounds(205, 410, 68, 63);
-            negBotao.setFont(fonte2);
-
+            negBotao.setFont(fonte);
+            log10.setFont(new Font("Courier New",Font.ITALIC,15));
             //=====================fim dos botoes inferiores============================
 
             calc2.setBounds(281, 410, 68, 63);//botão que abre a calc cientifica
@@ -158,17 +158,17 @@ public class Calculadora implements ActionListener{//Metodo action performed qua
             //=====================Adicião dos botões em seus respectivos paineis=========================
 
             //=======Painel dos botoes e funções basicas=======
-            painel.add(numBotao[1]);
-            painel.add(numBotao[2]);
-            painel.add(numBotao[3]);
+            painel.add(numBotao[7]);
+            painel.add(numBotao[8]);
+            painel.add(numBotao[9]);
             painel.add(adicBotao);
             painel.add(numBotao[4]);
             painel.add(numBotao[5]);
             painel.add(numBotao[6]);
             painel.add(subBotao);
-            painel.add(numBotao[7]);
-            painel.add(numBotao[8]);
-            painel.add(numBotao[9]);
+            painel.add(numBotao[1]);
+            painel.add(numBotao[2]);
+            painel.add(numBotao[3]);
             painel.add(multBotao);
             painel.add(decBotao);
             painel.add(numBotao[0]);
@@ -177,12 +177,12 @@ public class Calculadora implements ActionListener{//Metodo action performed qua
             //=======painel Calculadora cientifica=======
             painel2.add(porcentagem);
             painel2.add(fatorial);
-            painel2.add(n3);
-            painel2.add(n4);
-            painel2.add(n5);
-            painel2.add(n6);
-            painel2.add(n7);
-            painel2.add(n8);
+            painel2.add(seno);
+            painel2.add(cosseno);
+            painel2.add(tangente);
+            painel2.add(exponencial);
+            painel2.add(raizquadrada);
+            painel2.add(log10);
             painel2.setVisible(false);
             //=======painel Janela principal======
             tela.add(painel);
@@ -218,11 +218,11 @@ public void actionPerformed(ActionEvent e){
         texto.setBounds(50, 25, 460, 50);
         tela.setSize(580, 550);
         delBotao.setBounds(51, 410,68, 63);
-        delBotao.setFont(fonte2);
+        delBotao.setFont(fonte);
         limpBotao.setBounds(129, 410,67, 63);
-        limpBotao.setFont(fonte2);
+        limpBotao.setFont(fonte);
         negBotao.setBounds(205, 410, 68, 63);
-        negBotao.setFont(fonte2);
+        negBotao.setFont(fonte);
         calc2.setBounds(281, 410, 68, 63);
         calc2V.setBounds(360, 410, 70, 63);
         calc2V.setVisible(true);
@@ -232,11 +232,11 @@ public void actionPerformed(ActionEvent e){
     if(e.getSource()==calc2V){//=============Esconde o painel cientifico================
 
         delBotao.setBounds(51, 410,68, 63);
-        delBotao.setFont(fonte2);
+        delBotao.setFont(fonte);
         limpBotao.setBounds(129, 410,67, 63);
-        limpBotao.setFont(fonte2);
+        limpBotao.setFont(fonte);
         negBotao.setBounds(205, 410, 68, 63);
-        negBotao.setFont(fonte2);
+        negBotao.setFont(fonte);
         calc2.setBounds(281, 410, 68, 63);
         tela.setSize(420, 550);
         texto.setBounds(50, 25, 300, 50);
@@ -294,6 +294,45 @@ public void actionPerformed(ActionEvent e){
         }
         texto.setText(String.valueOf(resultado));
      }
+     if(e.getSource()==seno){//======================= Seno ======================
+        double sen;
+        num1=Double.parseDouble(texto.getText());
+        sen=Math.toRadians(num1);        
+        texto.setText(String.valueOf(Math.sin(sen)));
+     }
+     if(e.getSource()==cosseno){//======================= Cosseno ======================
+        double cossen;
+        num1=Double.parseDouble(texto.getText());
+        cossen=Math.toRadians(num1);        
+        texto.setText(String.valueOf(Math.cos(cossen)));
+     }
+     if(e.getSource()==tangente){//======================= Tangente ======================
+        double tg;
+        num1=Double.parseDouble(texto.getText());
+        tg=Math.toRadians(num1);        
+        texto.setText(String.valueOf(Math.tan(tg)));
+     }
+     if(e.getSource()==exponencial){//===================== Exponencial =====================
+
+        num1=Double.parseDouble(texto.getText());
+        operador='^';
+        texto.setText("");
+     }
+
+     if(e.getSource()==raizquadrada){//=================== Raiz Quadrada =====================
+
+        num1=Double.parseDouble(texto.getText());
+        resultado=Math.sqrt(num1);
+        texto.setText(String.valueOf(resultado));
+     }
+     if(e.getSource()==log10){//========================== Log de 10 =========================
+
+        num1=Double.parseDouble(texto.getText());
+
+        texto.setText(String.valueOf(Math.log10(num1)));
+
+     }
+
 
      if(e.getSource()==iguBotao){//=================Botão de igual====================
         
@@ -315,7 +354,14 @@ public void actionPerformed(ActionEvent e){
                 break;
             case'%':
                 resultado=(num1/100)*num2;
-                break;       
+                break;
+            case'^':// ==== Calculo do exponencial =====
+                resultado=1;
+                for(double i =1 ; i<= num2 ; i++){
+
+                    resultado=resultado*num1;
+                }
+            break;       
         }
 
         texto.setText(String.valueOf(resultado));// Texto recebe o valor da variavel e converte em string
