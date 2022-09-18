@@ -8,3 +8,8 @@ Calculadora cientifica(ainda programando essa parte)
 Clicando em CI ela abre o segundo painel com os botões adicionais
 
 ![Captura de tela 2022-09-17 175409](https://user-images.githubusercontent.com/111459606/190877536-6e172dd6-8a8b-4d9a-9065-0662168d57f6.png)
+
+Após as alterações de hoje  os numeros estao na ordem classica, e terminei de adicionar mais algumas funções na calculadora 
+
+
+![Captura de tela 2022-09-18 135438](https://user-images.githubusercontent.com/111459606/190919111-555af11d-ddd1-4489-8888-b92f4d8e5a7b.png)
