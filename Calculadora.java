@@ -1,4 +1,5 @@
 package Calculadora;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -9,11 +10,12 @@ public class Calculadora implements ActionListener{//Metodo action performed qua
     //==================================================Paineis e janelas principais=================================
 
     JFrame tela=new JFrame("Calculadora");// Janela principal do programa
-    JPanel painel=new JPanel();// Aqui o painel separado que vai os botoes decimais e numericos em um grid separado
-    JPanel painel2=new JPanel();
-    JTextField texto=new JTextField();// Essa variavel que vai receber os valores para depois converter em double(Tela dos numeros)  
+    JPanel painel=new JPanel();// Painel separado que vai os botoes decimais e numericos em um grid separado
+    JPanel painel2=new JPanel();// Historico de digitação da calculadora
+    JTextField texto=new JTextField();// Variavel que vai receber os valores para depois converter em double(Tela dos numeros) 
+    JLabel historico=new JLabel(); // Historico
     Font fonte= new Font("Courier New",Font.ITALIC,18);// Fonte customizada para os botões principais
-
+    Font fonte2= new Font("Courier New",Font.ITALIC,30);// Fonte do historico e do painel de digitação
     //==================================================botoes e nomes das funções========================================
 
     JButton[] numBotao = new JButton [10];// Para percorrer os numeros decimais
@@ -29,7 +31,7 @@ public class Calculadora implements ActionListener{//Metodo action performed qua
     JButton limpBotao= new JButton(" C ");
     JButton negBotao=new JButton("(-)");
     JButton calc2 = new JButton("CI");
-    JButton calc2V=new JButton("<");
+    JButton calc2V=new JButton("Padrão");
     JButton porcentagem= new JButton("%");
     JButton fatorial= new JButton("n!");
     JButton seno= new JButton("Sen");// Esses aqui ainda estou fazendo as funções, deixei como letras para identificar melhor
@@ -41,21 +43,25 @@ public class Calculadora implements ActionListener{//Metodo action performed qua
     
 //================================================== Variaveis para uso global=============================================
     double num1=0,num2=0,resultado=0;// As variaveis que irão ser utilizadas (irão ser convertidas de string para double e double para string novamente e armazenadas em texto)
+    String hist;// Variavel switch para converter num2 em string e mostar no historico
     char operador; // Para um switch que vai identificar e efetuar o calculo da função
 
          public Calculadora(){//============Construtor da classe(Janela da Calculadora)=============
         
             //=================Formatação e posicionamento da janela principal e da janela de texto===============================
 
+            historico.setBounds(50, 50, 300, 50);
+            historico.setHorizontalAlignment(SwingConstants.RIGHT);
+            historico.setBackground(Color.gray);
+
             tela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// Fechar quando aperta no X
-            tela.setSize(420, 550);// Janela principal que contém todo o programa
+            tela.setSize(420, 650);// Janela principal que contém todo o programa
             tela.setLayout(null);// Não ira utilizar um layout na tela principal, sera declarado com setBounds
-            tela.add(texto);// Adição do campo de texto para ver os numeros digitados
             tela.setLocationRelativeTo(null);// Inicia no centro da tela
-            tela.setResizable(false);// Para não permitir que mude o tamanho da calculadora quando arrasta com o mouse   
+            tela.setResizable(false);// Para não permitir que mude o tamanho da calculadora quando arrasta com o mouse
+            tela.setBackground(Color.green);
             texto.setHorizontalAlignment(SwingConstants.RIGHT); // Comando para iniciar a escrita da direita para esquerda    
-            texto.setBounds(50, 25, 300, 50);// Posicão do campo de texto aonde vai os numeros
-            texto.setFont(fonte);
+            texto.setBounds(50, 100, 300, 50);// Posicão do campo de texto aonde vai os numeros
             texto.setEditable(true);// Para o usuario digitar no campo do texto ou não(true ou false)
 
             //=============Botões relacionados a arrays para usar um for e adicionar funções para eles==============
@@ -138,19 +144,23 @@ public class Calculadora implements ActionListener{//Metodo action performed qua
             //====OBS: Os botoes de deletar, limpar, apagar,numero negativo, trocar para cientifica e voltar para a calculadora normal estao separados====
             
             //====Formatação desses botões que citei acima=====
-            delBotao.setBounds(51, 410,68, 63);
+            delBotao.setBounds(51, 500,68, 63);
             delBotao.setFont(fonte);
-            limpBotao.setBounds(129, 410,67, 63);
+            limpBotao.setBounds(129, 500,67, 63);
             limpBotao.setFont(fonte);
-            negBotao.setBounds(205, 410, 68, 63);
+            negBotao.setBounds(205, 500, 68, 63);
             negBotao.setFont(fonte);
             log10.setFont(new Font("Courier New",Font.ITALIC,15));
+            calc2.setBounds(281, 500, 68, 63);//botão que abre a calc cientifica
+            texto.setFont(fonte2);
+            historico.setFont(fonte2);
+
             //=====================fim dos botoes inferiores============================
 
-            calc2.setBounds(281, 410, 68, 63);//botão que abre a calc cientifica
-            painel.setBounds(50, 100, 300, 300);// painel que esta os botões decimais e as funçoes deles
+            //=====================Paineis=============================================
+            painel.setBounds(50, 190, 300, 300);// painel que esta os botões decimais e as funçoes deles
             painel.setLayout(new GridLayout(4,4,10,10));//um grid de 4x4 com 10 pixels de espaço cada espaço
-            painel2.setBounds(360, 100, 150, 300);//painel dos botoes da calc cientifica
+            painel2.setBounds(360, 190, 150, 300);//painel dos botoes da calc cientifica
             painel2.setLayout(new GridLayout(4,4,10,10));//layout dos botoes da calc cientifica
 
             //=====================Fim do layout dos paineis de botões====================================
@@ -185,6 +195,8 @@ public class Calculadora implements ActionListener{//Metodo action performed qua
             painel2.add(log10);
             painel2.setVisible(false);
             //=======painel Janela principal======
+            tela.add(texto);// Adição do campo de texto para ver os numeros digitados
+            tela.add(historico);
             tela.add(painel);
             tela.add(delBotao);
             tela.add(limpBotao);
@@ -215,31 +227,33 @@ public void actionPerformed(ActionEvent e){
     }
     if(e.getSource()==calc2){//=============Mostra o painel cientifico==================
         
-        texto.setBounds(50, 25, 460, 50);
-        tela.setSize(580, 550);
-        delBotao.setBounds(51, 410,68, 63);
+        texto.setBounds(50, 100, 460, 50);
+        historico.setBounds(50, 50, 460, 50);
+        tela.setSize(580, 650);
+        delBotao.setBounds(51, 500,68, 63);
         delBotao.setFont(fonte);
-        limpBotao.setBounds(129, 410,67, 63);
+        limpBotao.setBounds(129, 500,67, 63);
         limpBotao.setFont(fonte);
-        negBotao.setBounds(205, 410, 68, 63);
+        negBotao.setBounds(205, 500, 68, 63);
         negBotao.setFont(fonte);
-        calc2.setBounds(281, 410, 68, 63);
-        calc2V.setBounds(360, 410, 70, 63);
+        calc2.setBounds(281, 500, 68, 63);
+        calc2V.setBounds(360, 500, 150, 63);
         calc2V.setVisible(true);
         painel2.setVisible(true);
        
     }
     if(e.getSource()==calc2V){//=============Esconde o painel cientifico================
 
-        delBotao.setBounds(51, 410,68, 63);
+        delBotao.setBounds(51, 500,68, 63);
         delBotao.setFont(fonte);
-        limpBotao.setBounds(129, 410,67, 63);
+        limpBotao.setBounds(129, 500,67, 63);
         limpBotao.setFont(fonte);
-        negBotao.setBounds(205, 410, 68, 63);
+        negBotao.setBounds(205, 500, 68, 63);
         negBotao.setFont(fonte);
-        calc2.setBounds(281, 410, 68, 63);
-        tela.setSize(420, 550);
-        texto.setBounds(50, 25, 300, 50);
+        calc2.setBounds(281, 500, 68, 63);
+        tela.setSize(420, 650);
+        texto.setBounds(50, 100, 300, 50);
+        historico.setBounds(50, 50, 300, 50);
         calc2V.setVisible(false);
         painel2.setVisible(false);
 
@@ -251,15 +265,17 @@ public void actionPerformed(ActionEvent e){
 
     }
     if(e.getSource()==adicBotao){//============ Soma ================================
-
-       num1= Double.parseDouble(texto.getText());
-       operador='+';
-       texto.setText("");
+        
+        num1= Double.parseDouble(texto.getText());
+        historico.setText(String.valueOf(num1)+" + ");
+        operador='+';
+        texto.setText("");
 
     }
     if(e.getSource()==subBotao){//============== Subtração =======================
 
         num1= Double.parseDouble(texto.getText());
+        historico.setText(String.valueOf(num1)+" - ");
         operador='-';
         texto.setText("");
  
@@ -267,6 +283,7 @@ public void actionPerformed(ActionEvent e){
     if(e.getSource()==multBotao){//=============== Multiplicação ======================
 
         num1= Double.parseDouble(texto.getText());
+        historico.setText(String.valueOf(num1)+" * ");
         operador='*';
         texto.setText("");
  
@@ -274,12 +291,14 @@ public void actionPerformed(ActionEvent e){
      if(e.getSource()==divBotao){//================ Divisão ===================
 
         num1= Double.parseDouble(texto.getText());
+        historico.setText(String.valueOf(num1)+" / ");
         operador='/';
         texto.setText("");
  
      }
      if(e.getSource()==porcentagem){//================ Porcentagem ===================
         num1= Double.parseDouble(texto.getText());
+        historico.setText(String.valueOf(num1)+" % de ");
         operador='%';
         texto.setText("");
 
@@ -292,23 +311,27 @@ public void actionPerformed(ActionEvent e){
             
             resultado= resultado*i;
         }
+        historico.setText(num1+"! = ");
         texto.setText(String.valueOf(resultado));
      }
      if(e.getSource()==seno){//======================= Seno ======================
         double sen;
         num1=Double.parseDouble(texto.getText());
+        historico.setText("Seno de "+num1+"° =");
         sen=Math.toRadians(num1);        
         texto.setText(String.valueOf(Math.sin(sen)));
      }
      if(e.getSource()==cosseno){//======================= Cosseno ======================
         double cossen;
         num1=Double.parseDouble(texto.getText());
+        historico.setText("Cosseno de "+num1+"° =");
         cossen=Math.toRadians(num1);        
         texto.setText(String.valueOf(Math.cos(cossen)));
      }
      if(e.getSource()==tangente){//======================= Tangente ======================
         double tg;
         num1=Double.parseDouble(texto.getText());
+        historico.setText("Tangente de "+num1+"° =");
         tg=Math.toRadians(num1);        
         texto.setText(String.valueOf(Math.tan(tg)));
      }
@@ -323,6 +346,7 @@ public void actionPerformed(ActionEvent e){
 
         num1=Double.parseDouble(texto.getText());
         resultado=Math.sqrt(num1);
+        historico.setText("√"+num1+" = ");
         texto.setText(String.valueOf(resultado));
      }
      if(e.getSource()==log10){//========================== Log de 10 =========================
@@ -331,32 +355,40 @@ public void actionPerformed(ActionEvent e){
 
         texto.setText(String.valueOf(Math.log10(num1)));
 
+        historico.setText("Log10 "+num1+" = ");
+
      }
 
 
      if(e.getSource()==iguBotao){//=================Botão de igual====================
         
         num2= Double.parseDouble(texto.getText());
-        
+        hist= String.valueOf(num2);
         switch(operador){
 
             case'+':
+                historico.setText(historico.getText().concat(hist)+" = ");
                 resultado=num1+num2;
                 break;
             case'-':
+                historico.setText(historico.getText().concat(hist)+" = ");
                 resultado=num1-num2;
                 break;
             case'*':
+                historico.setText(historico.getText().concat(hist)+" = ");
                 resultado=num1*num2;
                 break;
             case'/':
+                historico.setText(historico.getText().concat(hist)+" = ");
                 resultado=num1/num2;
                 break;
             case'%':
+                historico.setText(historico.getText().concat(hist)+" = ");
                 resultado=(num1/100)*num2;
                 break;
             case'^':// ==== Calculo do exponencial =====
                 resultado=1;
+                historico.setText(num1+"^"+num2+" = ");
                 for(double i =1 ; i<= num2 ; i++){
 
                     resultado=resultado*num1;
@@ -365,13 +397,14 @@ public void actionPerformed(ActionEvent e){
         }
 
         texto.setText(String.valueOf(resultado));// Texto recebe o valor da variavel e converte em string
-        num1=resultado; // Para caso queira utilizar o mesmo resultado calculado
+        //num1=resultado; // Para caso queira utilizar o mesmo resultado calculado
 
      }
 
      if(e.getSource()==limpBotao){//================ Botão Clear ==============
 
         texto.setText("");
+        historico.setText("");
  
      }
  
