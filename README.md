@@ -13,3 +13,7 @@ Após as alterações de hoje  os numeros estao na ordem classica, e terminei de
 
 
 ![Captura de tela 2022-09-18 135438](https://user-images.githubusercontent.com/111459606/190919111-555af11d-ddd1-4489-8888-b92f4d8e5a7b.png)
+
+Adicionado uma Label para mostrar historico de digitação
+
+![Captura de tela 2022-09-20 161329](https://user-images.githubusercontent.com/111459606/191344706-e3675495-6557-4c3d-b1fe-0c8128b66ed6.png)
