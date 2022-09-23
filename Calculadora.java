@@ -113,39 +113,11 @@ public class Calculadora implements ActionListener{//Metodo action performed qua
                 numBotao[i].setFocusable(false);//Retira os riscos da selecao que parecem erros
 
             }
-            //===================================Fim das adições de leitura e fontes============================================
 
-            //====================================Layout e mudar as cores================================
-            /* 
-            combo.setBackground(Color.LIGHT_GRAY);
-            combo.setForeground(Color.darkGray);
-            for(int i=0 ; i<10;i++){//=====Decimais========
-
-                numBotao[i].setBackground(Color.lightGray);
-                numBotao[i].setForeground(Color.darkGray);
-            
-            }
-            for(int i=0 ; i<8;i++){//=====Cientifica========
-
-                funcCBotao[i].setBackground(Color.gray);
-                funcCBotao[i].setForeground(Color.darkGray);   
-            }
-            for(int i=0 ; i<10;i++){//=====Fuunções basicas========
-
-                funcBotao[i].setBackground(Color.lightGray);
-                funcBotao[i].setForeground(Color.darkGray);
-            }
-            */
-            //========================================Fim do layout das cores============================
-
-            //====OBS: Os botoes de deletar, limpar, apagar,numero negativo, trocar para cientifica e voltar para a calculadora normal estao separados====
-            
-            //====Formatação desses botões que citei acima=====
+            //====Mudança de tamanhos de fonte para ficarem legiveis=====
             log10.setFont(new Font("Courier New",Font.ITALIC,15));
             texto.setFont(fonte2);
             historico.setFont(fonte2);
-
-            //=====================fim dos botoes inferiores============================
 
             //=====================Paineis=============================================
             painel.setBounds(50, 190, 300, 375);// painel que esta os botões decimais e as funçoes deles
@@ -153,9 +125,8 @@ public class Calculadora implements ActionListener{//Metodo action performed qua
             painel2.setBounds(360, 190, 150, 298);//painel dos botoes da calc cientifica
             painel2.setLayout(new GridLayout(4,4,10,10));//layout dos botoes da calc cientifica
 
-            //=====================Fim do layout dos paineis de botões====================================
-
             //=====================Adicião dos botões em seus respectivos paineis=========================
+
             //=======ComboBOX=============
             combo.addItem("Padrão");
             combo.addItem("Cientifica");
@@ -219,6 +190,7 @@ public void actionPerformed(ActionEvent e){
 
             texto.setText(texto.getText().concat(String.valueOf(i)));// Concatena o numero que foi digitado pelo botão na linha dos numeros
         }
+    //=================Inicio Layout ====================    
     }if(combotema.getSelectedIndex()==0){
 
         combo.setBackground(null);
@@ -266,6 +238,8 @@ public void actionPerformed(ActionEvent e){
             funcBotao[i].setForeground(Color.darkGray);
         }
     }
+    //=================Fim Layout==========================
+    
     if(combo.getSelectedIndex()==1){//=============Mostra o painel cientifico==================
         
         texto.setBounds(50, 100, 460, 50);
