@@ -9,6 +9,7 @@ public class Calculadora implements ActionListener{//Metodo action performed qua
     
     //==================================================Paineis e janelas principais=================================
     JComboBox<String>combo=new JComboBox<String>();// Combobox para fazer a troca das calculadoras
+    JComboBox<String>combotema=new JComboBox<String>();// Combobox para selecionar um tema
     JFrame tela=new JFrame("Calculadora");// Janela principal do programa
     JPanel painel=new JPanel();// Painel separado que vai os botoes decimais e numericos em um grid separado
     JPanel painel2=new JPanel();// Historico de digitação da calculadora
@@ -51,7 +52,6 @@ public class Calculadora implements ActionListener{//Metodo action performed qua
 
             historico.setBounds(50, 50, 300, 50);
             historico.setHorizontalAlignment(SwingConstants.RIGHT);
-
             tela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// Fechar quando aperta no X
             tela.setSize(420, 650);// Janela principal que contém todo o programa
             tela.setLayout(null);// Não ira utilizar um layout na tela principal, sera declarado com setBounds
@@ -59,7 +59,8 @@ public class Calculadora implements ActionListener{//Metodo action performed qua
             tela.setResizable(false);// Para não permitir que mude o tamanho da calculadora quando arrasta com o mouse
             texto.setHorizontalAlignment(SwingConstants.RIGHT); // Comando para iniciar a escrita da direita para esquerda    
             texto.setBounds(50, 100, 300, 50);// Posicão do campo de texto aonde vai os numeros
-            combo.setBounds(50, 160, 80, 20);
+            combo.setBounds(50, 160, 80, 20);// Combobox das calculadoras
+            combotema.setBounds(230, 160, 120, 20);
             texto.setEditable(true);// Para o usuario digitar no campo do texto ou não(true ou false)
 
             //=============Botões relacionados a arrays para usar um for e adicionar funções para eles==============
@@ -85,6 +86,9 @@ public class Calculadora implements ActionListener{//Metodo action performed qua
             
             //=================================Função de leitura nos botões e setando as fontes=================================
             combo.addActionListener(this);//ComboBox
+            combo.setFocusable(false);
+            combotema.setFocusable(false);
+            combotema.addActionListener(this);
 
             for(int i=0; i<10; i++){//===========For das funções Basicas===========
 
@@ -112,6 +116,7 @@ public class Calculadora implements ActionListener{//Metodo action performed qua
             //===================================Fim das adições de leitura e fontes============================================
 
             //====================================Layout e mudar as cores================================
+            /* 
             combo.setBackground(Color.LIGHT_GRAY);
             combo.setForeground(Color.darkGray);
             for(int i=0 ; i<10;i++){//=====Decimais========
@@ -130,7 +135,7 @@ public class Calculadora implements ActionListener{//Metodo action performed qua
                 funcBotao[i].setBackground(Color.lightGray);
                 funcBotao[i].setForeground(Color.darkGray);
             }
-
+            */
             //========================================Fim do layout das cores============================
 
             //====OBS: Os botoes de deletar, limpar, apagar,numero negativo, trocar para cientifica e voltar para a calculadora normal estao separados====
@@ -154,6 +159,8 @@ public class Calculadora implements ActionListener{//Metodo action performed qua
             //=======ComboBOX=============
             combo.addItem("Padrão");
             combo.addItem("Cientifica");
+            combotema.addItem("Tema Padrão");
+            combotema.addItem("Tema Cinza");
             //=======Painel dos botoes e funções basicas=======
             painel.add(numBotao[7]);
             painel.add(numBotao[8]);
@@ -187,6 +194,7 @@ public class Calculadora implements ActionListener{//Metodo action performed qua
             painel2.setVisible(false);
             //=======painel Janela principal======
             tela.add(combo);
+            tela.add(combotema);
             tela.add(texto);// Adição do campo de texto para ver os numeros digitados
             tela.add(historico);
             tela.add(painel);
@@ -211,6 +219,52 @@ public void actionPerformed(ActionEvent e){
 
             texto.setText(texto.getText().concat(String.valueOf(i)));// Concatena o numero que foi digitado pelo botão na linha dos numeros
         }
+    }if(combotema.getSelectedIndex()==0){
+
+        combo.setBackground(null);
+        combo.setForeground(null);
+        combotema.setBackground(null);
+        combotema.setForeground(null);
+        for(int i=0 ; i<10;i++){//=====Decimais========
+
+            numBotao[i].setBackground(null);
+            numBotao[i].setForeground(null);
+        
+        }
+        for(int i=0 ; i<8;i++){//=====Cientifica========
+
+            funcCBotao[i].setBackground(null);
+            funcCBotao[i].setForeground(null);   
+        }
+        for(int i=0 ; i<10;i++){//=====Fuunções basicas========
+
+            funcBotao[i].setBackground(null);
+            funcBotao[i].setForeground(null);
+        }
+    }
+
+    if(combotema.getSelectedIndex()==1){
+
+        combo.setBackground(Color.LIGHT_GRAY);
+        combo.setForeground(Color.darkGray);
+        combotema.setBackground(Color.LIGHT_GRAY);
+        combotema.setForeground(Color.darkGray);
+        for(int i=0 ; i<10;i++){//=====Decimais========
+
+            numBotao[i].setBackground(Color.lightGray);
+            numBotao[i].setForeground(Color.darkGray);
+        
+        }
+        for(int i=0 ; i<8;i++){//=====Cientifica========
+
+            funcCBotao[i].setBackground(Color.gray);
+            funcCBotao[i].setForeground(Color.darkGray);   
+        }
+        for(int i=0 ; i<10;i++){//=====Fuunções basicas========
+
+            funcBotao[i].setBackground(Color.lightGray);
+            funcBotao[i].setForeground(Color.darkGray);
+        }
     }
     if(combo.getSelectedIndex()==1){//=============Mostra o painel cientifico==================
         
@@ -218,13 +272,14 @@ public void actionPerformed(ActionEvent e){
         historico.setBounds(50, 50, 460, 50);
         tela.setSize(580, 650);
         painel2.setVisible(true);
-       
+        combotema.setBounds(390, 160, 120, 20);
     }
     if(combo.getSelectedIndex()==0){//=============Esconde o painel cientifico================
 
         tela.setSize(420, 650);
         texto.setBounds(50, 100, 300, 50);
         historico.setBounds(50, 50, 300, 50);
+        combotema.setBounds(230, 160, 120, 20);
         painel2.setVisible(false);
         
     }
