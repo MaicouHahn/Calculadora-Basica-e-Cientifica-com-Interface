@@ -17,11 +17,11 @@ public class Calculadora implements ActionListener{//Metodo action performed qua
     JLabel historico=new JLabel(); // Historico
     Font fonte= new Font("Courier New",Font.ITALIC,18);// Fonte customizada para os botões principais
     Font fonte2= new Font("Courier New",Font.ITALIC,30);// Fonte do historico e do painel de digitação
-    //==================================================botoes e nomes das funções========================================
+    //==================================================botoes e nomes das funções====================================
 
     JButton[] numBotao = new JButton [10];// Para percorrer os numeros decimais
     JButton[] funcBotao =new JButton [10];// Para percorrer as funçoes normais
-    JButton[] funcCBotao = new JButton[8];// Para percorrer as funçoes cienntificas
+    JButton[] funcCBotao = new JButton[10];// Para percorrer as funçoes cienntificas
     JButton adicBotao=new JButton("+");// Botões criados e com seus nomes declarados
     JButton subBotao= new JButton("-");
     JButton multBotao=new JButton("*");
@@ -39,9 +39,11 @@ public class Calculadora implements ActionListener{//Metodo action performed qua
     JButton tangente= new JButton("Tg");
     JButton exponencial= new JButton("Exp");
     JButton raizquadrada= new JButton("√");
+    JButton umdiv= new JButton("1/x");
+    JButton mod= new JButton("Mod");
     JButton log10= new JButton("Lg10");
     
-//================================================== Variaveis para uso global=============================================
+//================================================== Variaveis para uso global==========================================
     double num1=0,num2=0,resultado=0;// As variaveis que irão ser utilizadas (irão ser convertidas de string para double e double para string novamente e armazenadas em texto)
     String hist;// Variavel switch para converter num2 em string e mostar no historico
     char operador; // Para um switch que vai identificar e efetuar o calculo da função
@@ -83,7 +85,8 @@ public class Calculadora implements ActionListener{//Metodo action performed qua
             funcCBotao[5]=exponencial;
             funcCBotao[6]=raizquadrada;
             funcCBotao[7]=log10;
-            
+            funcCBotao[8]=umdiv;
+            funcCBotao[9]=mod;
             //=================================Função de leitura nos botões e setando as fontes=================================
             combo.addActionListener(this);//ComboBox
             combo.setFocusable(false);
@@ -98,7 +101,7 @@ public class Calculadora implements ActionListener{//Metodo action performed qua
 
             }
             
-            for(int i=0 ; i<8 ; i++){//=========For das funções cientificas========
+            for(int i=0 ; i<10 ; i++){//=========For das funções cientificas========
 
                 funcCBotao[i].addActionListener(this);
                 funcCBotao[i].setFont(fonte);
@@ -122,8 +125,8 @@ public class Calculadora implements ActionListener{//Metodo action performed qua
             //=====================Paineis=============================================
             painel.setBounds(50, 190, 300, 375);// painel que esta os botões decimais e as funçoes deles
             painel.setLayout(new GridLayout(5,4,10,10));//um grid de 4x4 com 10 pixels de espaço cada espaço
-            painel2.setBounds(360, 190, 150, 298);//painel dos botoes da calc cientifica
-            painel2.setLayout(new GridLayout(4,4,10,10));//layout dos botoes da calc cientifica
+            painel2.setBounds(360, 190, 150, 375);//painel dos botoes da calc cientifica
+            painel2.setLayout(new GridLayout(5,4,10,10));//layout dos botoes da calc cientifica
 
             //=====================Adicião dos botões em seus respectivos paineis=========================
 
@@ -132,6 +135,8 @@ public class Calculadora implements ActionListener{//Metodo action performed qua
             combo.addItem("Cientifica");
             combotema.addItem("Tema Padrão");
             combotema.addItem("Tema Cinza");
+            combotema.addItem("Tema cinza 2");
+            
             //=======Painel dos botoes e funções basicas=======
             painel.add(numBotao[7]);
             painel.add(numBotao[8]);
@@ -162,6 +167,8 @@ public class Calculadora implements ActionListener{//Metodo action performed qua
             painel2.add(exponencial);
             painel2.add(raizquadrada);
             painel2.add(log10);
+            painel2.add(umdiv);
+            painel2.add(mod);
             painel2.setVisible(false);
             //=======painel Janela principal======
             tela.add(combo);
@@ -191,7 +198,8 @@ public void actionPerformed(ActionEvent e){
             texto.setText(texto.getText().concat(String.valueOf(i)));// Concatena o numero que foi digitado pelo botão na linha dos numeros
         }
     //=================Inicio Layout ====================    
-    }if(combotema.getSelectedIndex()==0){
+    }
+    if(combotema.getSelectedIndex()==0){//=========== Tema padrão ==================
 
         combo.setBackground(null);
         combo.setForeground(null);
@@ -203,7 +211,7 @@ public void actionPerformed(ActionEvent e){
             numBotao[i].setForeground(null);
         
         }
-        for(int i=0 ; i<8;i++){//=====Cientifica========
+        for(int i=0 ; i<10;i++){//=====Cientifica========
 
             funcCBotao[i].setBackground(null);
             funcCBotao[i].setForeground(null);   
@@ -214,8 +222,7 @@ public void actionPerformed(ActionEvent e){
             funcBotao[i].setForeground(null);
         }
     }
-
-    if(combotema.getSelectedIndex()==1){
+    if(combotema.getSelectedIndex()==1){//============ Tema cinza ===================
 
         combo.setBackground(Color.LIGHT_GRAY);
         combo.setForeground(Color.darkGray);
@@ -227,7 +234,7 @@ public void actionPerformed(ActionEvent e){
             numBotao[i].setForeground(Color.darkGray);
         
         }
-        for(int i=0 ; i<8;i++){//=====Cientifica========
+        for(int i=0 ; i<10;i++){//=====Cientifica========
 
             funcCBotao[i].setBackground(Color.gray);
             funcCBotao[i].setForeground(Color.darkGray);   
@@ -237,10 +244,32 @@ public void actionPerformed(ActionEvent e){
             funcBotao[i].setBackground(Color.lightGray);
             funcBotao[i].setForeground(Color.darkGray);
         }
-    }
-    //=================Fim Layout==========================
+    } 
+    if(combotema.getSelectedIndex()==2){
+
+        combo.setBackground(Color.gray);
+        combo.setForeground(Color.LIGHT_GRAY);
+        combotema.setBackground(Color.gray);
+        combotema.setForeground(Color.LIGHT_GRAY);
+        for(int i=0 ; i<10;i++){//=====Decimais========
+
+            numBotao[i].setBackground(Color.gray);
+            numBotao[i].setForeground(Color.lightGray);
+        
+        }
+        for(int i=0 ; i<10;i++){//=====Cientifica========
+
+            funcCBotao[i].setBackground(Color.lightGray);
+            funcCBotao[i].setForeground(Color.gray);   
+        }
+        for(int i=0 ; i<10;i++){//=====Fuunções basicas========
+
+            funcBotao[i].setBackground(Color.darkGray);
+            funcBotao[i].setForeground(Color.lightGray);
+        }
+    } 
     
-    if(combo.getSelectedIndex()==1){//=============Mostra o painel cientifico==================
+    if(combo.getSelectedIndex()==1){//================ Mostra o painel cientifico ==================
         
         texto.setBounds(50, 100, 460, 50);
         historico.setBounds(50, 50, 460, 50);
@@ -248,7 +277,7 @@ public void actionPerformed(ActionEvent e){
         painel2.setVisible(true);
         combotema.setBounds(390, 160, 120, 20);
     }
-    if(combo.getSelectedIndex()==0){//=============Esconde o painel cientifico================
+    if(combo.getSelectedIndex()==0){//================ Esconde o painel cientifico ================
 
         tela.setSize(420, 650);
         texto.setBounds(50, 100, 300, 50);
@@ -257,13 +286,12 @@ public void actionPerformed(ActionEvent e){
         painel2.setVisible(false);
         
     }
-
-    if(e.getSource()==decBotao){//=============Esse loop é para colocar o . nos numeros============
+    if(e.getSource()==decBotao){//==================== . ============
 
         texto.setText(texto.getText().concat("."));// Se apertarado o . na calculadora ele concatena na string
 
     }
-    if(e.getSource()==adicBotao){//============ Soma ================================
+    if(e.getSource()==adicBotao){//=================== Soma ================================
         
         num1= Double.parseDouble(texto.getText());
         historico.setText(String.valueOf(num1)+" + ");
@@ -271,7 +299,7 @@ public void actionPerformed(ActionEvent e){
         texto.setText("");
 
     }
-    if(e.getSource()==subBotao){//============== Subtração =======================
+    if(e.getSource()==subBotao){//==================== Subtração =======================
 
         num1= Double.parseDouble(texto.getText());
         historico.setText(String.valueOf(num1)+" - ");
@@ -279,7 +307,7 @@ public void actionPerformed(ActionEvent e){
         texto.setText("");
  
     }
-    if(e.getSource()==multBotao){//=============== Multiplicação ======================
+    if(e.getSource()==multBotao){//=================== Multiplicação ======================
 
         num1= Double.parseDouble(texto.getText());
         historico.setText(String.valueOf(num1)+" * ");
@@ -287,7 +315,7 @@ public void actionPerformed(ActionEvent e){
         texto.setText("");
  
      }
-     if(e.getSource()==divBotao){//================ Divisão ===================
+     if(e.getSource()==divBotao){//=================== Divisão ===================
 
         num1= Double.parseDouble(texto.getText());
         historico.setText(String.valueOf(num1)+" / ");
@@ -295,7 +323,7 @@ public void actionPerformed(ActionEvent e){
         texto.setText("");
  
      }
-     if(e.getSource()==quadrado){//================ Quadrado ===================
+     if(e.getSource()==quadrado){//=================== Quadrado ===================
         num1= Double.parseDouble(texto.getText());
         resultado=num1*num1;
         historico.setText(String.valueOf(num1)+"² = ");
@@ -308,7 +336,7 @@ public void actionPerformed(ActionEvent e){
         texto.setText("");
 
      }
-     if(e.getSource()==fatorial){//================ Fatorial ===================
+     if(e.getSource()==fatorial){//=================== Fatorial ===================
 
         resultado=1;
         num1=Double.parseDouble(texto.getText());
@@ -326,36 +354,48 @@ public void actionPerformed(ActionEvent e){
         sen=Math.toRadians(num1);        
         texto.setText(String.valueOf(Math.sin(sen)));
      }
-     if(e.getSource()==cosseno){//======================= Cosseno ======================
+     if(e.getSource()==cosseno){//==================== Cosseno ======================
         double cossen;
         num1=Double.parseDouble(texto.getText());
         historico.setText("Cosseno de "+num1+"° =");
         cossen=Math.toRadians(num1);        
         texto.setText(String.valueOf(Math.cos(cossen)));
      }
-     if(e.getSource()==tangente){//======================= Tangente ======================
+     if(e.getSource()==tangente){//=================== Tangente ======================
         double tg;
         num1=Double.parseDouble(texto.getText());
         historico.setText("Tangente de "+num1+"° =");
         tg=Math.toRadians(num1);        
         texto.setText(String.valueOf(Math.tan(tg)));
      }
-     if(e.getSource()==exponencial){//===================== Exponencial =====================
+     if(e.getSource()==exponencial){//================ Exponencial =====================
 
         num1=Double.parseDouble(texto.getText());
         operador='^';
         historico.setText(String.valueOf(num1)+"^");
         texto.setText("");
      }
+     if(e.getSource()==umdiv){//====================== 1 dividido por x=======================
+        num1=Double.parseDouble(texto.getText());
+        resultado=1/num1;
+        historico.setText("1/"+num1+" = ");
+        texto.setText(String.valueOf(resultado));
 
-     if(e.getSource()==raizquadrada){//=================== Raiz Quadrada =====================
+     }
+     if(e.getSource()==mod){//======================== Mod(Resto) ========================
+        num1=Double.parseDouble(texto.getText());
+        operador='M';
+        texto.setText("");
+        historico.setText(num1+" Mod ");
+     }
+     if(e.getSource()==raizquadrada){//=============== Raiz Quadrada =====================
 
         num1=Double.parseDouble(texto.getText());
         resultado=Math.sqrt(num1);
         historico.setText("√"+num1+" = ");
         texto.setText(String.valueOf(resultado));
      }
-     if(e.getSource()==log10){//========================== Log de 10 =========================
+     if(e.getSource()==log10){//====================== Log de 10 =========================
 
         num1=Double.parseDouble(texto.getText());
 
@@ -364,9 +404,7 @@ public void actionPerformed(ActionEvent e){
         historico.setText("Log10 "+num1+" = ");
 
      }
-
-
-     if(e.getSource()==iguBotao){//=================Botão de igual====================
+     if(e.getSource()==iguBotao){//=================== Botão de igual====================
         
         num2= Double.parseDouble(texto.getText());
         hist= String.valueOf(num2);
@@ -395,10 +433,13 @@ public void actionPerformed(ActionEvent e){
             case'^':// ==== Calculo do exponencial =====
                 resultado=1;
                 historico.setText(historico.getText().concat(String.valueOf(num2))+" = ");
-                
                 for(double i =1 ; i<= num2 ; i++){
                     resultado=resultado*num1;
                 }
+                break;
+            case'M':
+                resultado=num1%num2;
+                historico.setText(historico.getText().concat(String.valueOf(num2))+" = ");
             break;       
         }
 
@@ -406,15 +447,13 @@ public void actionPerformed(ActionEvent e){
         //num1=resultado; // Para caso queira utilizar o mesmo resultado calculado
 
      }
-
-     if(e.getSource()==limpBotao){//================ Botão Clear ==============
+     if(e.getSource()==limpBotao){//================== Botão Clear ==============
 
         texto.setText("");
         historico.setText("");
  
      }
- 
-     if(e.getSource()==delBotao){//================= Botão <- (del)==================
+     if(e.getSource()==delBotao){//=================== Botão <- (del)==================
 
         String string = texto.getText();
 
@@ -426,7 +465,7 @@ public void actionPerformed(ActionEvent e){
         }
  
      }
-     if(e.getSource()==negBotao){// Converte em numero negativo multiplicando por -1
+     if(e.getSource()==negBotao){//=================== Multiplica por -1 ==============
 
         double temp = Double.parseDouble(texto.getText());// Converte string em double
         temp=temp*-1;
