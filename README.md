@@ -18,6 +18,10 @@ Adicionado uma Label para mostrar historico de digitação
 
 ![Captura de tela 2022-09-20 161329](https://user-images.githubusercontent.com/111459606/191344706-e3675495-6557-4c3d-b1fe-0c8128b66ed6.png)
 
-Adição de um ComboBox para substituir os botões de abrir calculadora cientifica e fechar, correção da parte do calculo exponencial onde o historico nao mostrava corretamente e retirada das formatações sem layout dos botões de limpar,voltar, e numero negativo
+Adição de um ComboBox para substituir os botões de abrir e fechar a calculadora cientifica, correção da parte do calculo exponencial em que o historico não mostrava corretamente o calculo e realocados os botões que não tinham formatação
 
 ![Captura de tela 2022-09-21 163520](https://user-images.githubusercontent.com/111459606/191594994-09e6f815-7016-4064-82f7-0f5709f2d206.png)
+
+calculadora na versão final, adicionar um combo box para selecionar os temas da calculadora
+
+![Captura de tela 2022-10-03 152151](https://user-images.githubusercontent.com/111459606/193650930-67696dd4-ea10-46bf-a00c-1507a7a8f505.png)
