@@ -66,7 +66,7 @@ public class Calculadora implements ActionListener{//Metodo action performed qua
             texto.setEditable(true);// Para o usuario digitar no campo do texto ou não(true ou false)
 
             //=============Botões relacionados a arrays para usar um for e adicionar funções para eles==============
-
+            //=====Basica===
             funcBotao[0]=adicBotao;
             funcBotao[1]=subBotao;
             funcBotao[2]=multBotao;
@@ -77,6 +77,7 @@ public class Calculadora implements ActionListener{//Metodo action performed qua
             funcBotao[7]=limpBotao;
             funcBotao[8]=negBotao;
             funcBotao[9]=quadrado;
+            //=====Cientifica======
             funcCBotao[0]=porcentagem;
             funcCBotao[1]=fatorial;
             funcCBotao[2]=seno;
@@ -93,7 +94,7 @@ public class Calculadora implements ActionListener{//Metodo action performed qua
             combotema.setFocusable(false);
             combotema.addActionListener(this);
 
-            for(int i=0; i<10; i++){//===========For das funções Basicas===========
+            for(int i=0; i<funcBotao.length; i++){//===========For das funções Basicas===========
 
                 funcBotao[i].addActionListener(this);//Cada botao vai receber a fuçao de leitura
                 funcBotao[i].setFont(fonte);//Mudança da fonte
@@ -101,14 +102,14 @@ public class Calculadora implements ActionListener{//Metodo action performed qua
 
             }
             
-            for(int i=0 ; i<10 ; i++){//=========For das funções cientificas========
+            for(int i=0 ; i<funcCBotao.length ; i++){//=========For das funções cientificas========
 
                 funcCBotao[i].addActionListener(this);
                 funcCBotao[i].setFont(fonte);
                 funcCBotao[i].setFocusable(false);
 
             }
-            for(int i=0; i<10; i++){//=========For dos botoes decimais============
+            for(int i=0; i<numBotao.length; i++){//=========For dos botoes decimais============
 
                 numBotao[i]=new JButton(String.valueOf(i));//Criaçao e numeraçao
                 numBotao[i].addActionListener(this);//Cada botao vai receber a fuçao de leitura
@@ -205,18 +206,18 @@ public void actionPerformed(ActionEvent e){
         combo.setForeground(null);
         combotema.setBackground(null);
         combotema.setForeground(null);
-        for(int i=0 ; i<10;i++){//=====Decimais========
+        for(int i=0 ; i<numBotao.length;i++){//=====Decimais========
 
             numBotao[i].setBackground(null);
             numBotao[i].setForeground(null);
         
         }
-        for(int i=0 ; i<10;i++){//=====Cientifica========
+        for(int i=0 ; i<funcCBotao.length;i++){//=====Cientifica========
 
             funcCBotao[i].setBackground(null);
             funcCBotao[i].setForeground(null);   
         }
-        for(int i=0 ; i<10;i++){//=====Fuunções basicas========
+        for(int i=0 ; i<funcBotao.length;i++){//=====Fuunções basicas========
 
             funcBotao[i].setBackground(null);
             funcBotao[i].setForeground(null);
@@ -228,18 +229,18 @@ public void actionPerformed(ActionEvent e){
         combo.setForeground(Color.darkGray);
         combotema.setBackground(Color.LIGHT_GRAY);
         combotema.setForeground(Color.darkGray);
-        for(int i=0 ; i<10;i++){//=====Decimais========
+        for(int i=0 ; i<numBotao.length;i++){//=====Decimais========
 
             numBotao[i].setBackground(Color.lightGray);
             numBotao[i].setForeground(Color.darkGray);
         
         }
-        for(int i=0 ; i<10;i++){//=====Cientifica========
+        for(int i=0 ; i<funcCBotao.length;i++){//=====Cientifica========
 
             funcCBotao[i].setBackground(Color.gray);
             funcCBotao[i].setForeground(Color.darkGray);   
         }
-        for(int i=0 ; i<10;i++){//=====Fuunções basicas========
+        for(int i=0 ; i<funcBotao.length;i++){//=====Fuunções basicas========
 
             funcBotao[i].setBackground(Color.lightGray);
             funcBotao[i].setForeground(Color.darkGray);
@@ -251,18 +252,18 @@ public void actionPerformed(ActionEvent e){
         combo.setForeground(Color.LIGHT_GRAY);
         combotema.setBackground(Color.gray);
         combotema.setForeground(Color.LIGHT_GRAY);
-        for(int i=0 ; i<10;i++){//=====Decimais========
+        for(int i=0 ; i<numBotao.length;i++){//=====Decimais========
 
             numBotao[i].setBackground(Color.gray);
             numBotao[i].setForeground(Color.lightGray);
         
         }
-        for(int i=0 ; i<10;i++){//=====Cientifica========
+        for(int i=0 ; i<funcCBotao.length;i++){//=====Cientifica========
 
             funcCBotao[i].setBackground(Color.lightGray);
             funcCBotao[i].setForeground(Color.gray);   
         }
-        for(int i=0 ; i<10;i++){//=====Fuunções basicas========
+        for(int i=0 ; i<funcBotao.length;i++){//=====Fuunções basicas========
 
             funcBotao[i].setBackground(Color.darkGray);
             funcBotao[i].setForeground(Color.lightGray);
